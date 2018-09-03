@@ -8,7 +8,7 @@ class NewsListTile extends StatelessWidget {
 
   NewsListTile({this.itemId});
 
-  Widget builder(context) {
+  Widget build(context) {
     final bloc = StoriesProvider.of(context);
 
     return StreamBuilder(
