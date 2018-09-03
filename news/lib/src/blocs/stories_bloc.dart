@@ -28,7 +28,6 @@ class StoriesBloc {
   _itemsTransformer() {
     return ScanStreamTransformer(
       (Map<int, Future<ItemModel>> cache, int id, _index) {
-        print(_index);
         cache[id] = _repository.fetchItem(id);
         return cache;
       },
