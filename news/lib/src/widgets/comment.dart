@@ -15,8 +15,28 @@ class Comment extends StatelessWidget {
         if (!snapshot.hasData) {
           return Text('Still loading content');
         }
+        final item = snapshot.data;
 
-        return Text(snapshot.data.text);
+        final children = <Widget>[
+          ListTile(
+            title: Text(item.text),
+            subtitle: item.by == '' ? Text('Deleted') : Text(item.by),
+          ),
+          Divider(),
+        ];
+
+        item.kids.forEach((kidId) {
+          children.add(
+            Comment(
+              itemId: kidId,
+              itemMap: itemMap,
+            ),
+          );
+        });
+
+        return Column(
+          children: children,
+        );
       },
     );
   }
