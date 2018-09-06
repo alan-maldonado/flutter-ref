@@ -47,7 +47,6 @@ class NewsListTile extends StatelessWidget {
           ),
           onTap: () {
             Navigator.pushNamed(context, '/${item.id}');
-            print('${item.id} was tapped');
           },
         ),
         Divider(
