@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../models/item_model.dart';
+import 'loading_list_tile.dart';
 
 class Comment extends StatelessWidget {
   final int itemId;
@@ -14,13 +15,13 @@ class Comment extends StatelessWidget {
       future: itemMap[itemId],
       builder: (context, AsyncSnapshot<ItemModel> snapshot) {
         if (!snapshot.hasData) {
-          return Text('Still loading content');
+          return LoadingListTile();
         }
         final item = snapshot.data;
 
         final children = <Widget>[
           ListTile(
-            title: Text(item.text),
+            title: buildText(item),
             subtitle: item.by == '' ? Text('Deleted') : Text(item.by),
             contentPadding: EdgeInsets.only(
               right: 16.0,
@@ -45,5 +46,14 @@ class Comment extends StatelessWidget {
         );
       },
     );
+  }
+
+  Widget buildText(ItemModel item) {
+    final text = item.text
+        .replaceAll('&#x27;', "'")
+        .replaceAll('<p>', '\n\n')
+        .replaceAll('</p>', '');
+
+    return Text(text);
   }
 }
